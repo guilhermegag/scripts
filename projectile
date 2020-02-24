@@ -1,0 +1,31 @@
+-- 24 - Fev - 2020
+
+local lPlayer = getLocalPlayer()
+local sX, sY = guiGetScreenSize(lPlayer)
+
+function cRocket()
+if getPlayerName(lPlayer) == "guilhermeag" then
+	local vehicle = getPedOccupiedVehicle(lPlayer)
+	local my = nil
+	local x, y, z = nil, nil, nil
+	if vehicle then
+		my = vehicle
+		x, y, z = getElementPosition(vehicle)
+	else
+		my = lPlayer
+		x, y, z = getElementPosition(lPlayer)
+	else
+		return ("Error")
+	end
+	for i,vehicles in ipairs(getElementsByType("vehicle")) do
+		if isElementOnScreen(vehicles) then
+			createProjectile(my, 20, x, y, z+10, vehicles)
+			outputChatBox ("Criando projétei; " .. #vehicles, getRootElement(), 255, 255, 255, true)
+		end
+	end
+end
+end
+addCommandHandler ("cp", cRocket)
+bindKey ("1","down", cRocket)
+
+	
